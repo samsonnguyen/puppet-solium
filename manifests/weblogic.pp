@@ -24,6 +24,7 @@ class solium::weblogic ($user        = undef,
     require => Package['wget'],
     unless  => "test -d ${install_dir}${version}/wlserver",
     timeout => 3600,
+    user    => $user,
   }
 
   file { ['/opt/java',
@@ -42,11 +43,13 @@ class solium::weblogic ($user        = undef,
     require => Exec['retrieve_weblogic'],
     onlyif  => "test -d ${install_dir}${version}",
     unless  => "test -d ${install_dir}${version}/wlserver",
+    user    => $user,
   }
 
   exec { 'create_symlink' :
     command => "ln -sfn ${install_dir}${version} ${install_dir}/10.3.6",
-    require => Exec['install_weblogic']
+    require => Exec['install_weblogic'],
+    user    => $user
   }
 
 }
