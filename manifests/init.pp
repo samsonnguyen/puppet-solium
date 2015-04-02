@@ -15,6 +15,7 @@ class solium(
   include iterm2::dev
   include iterm2::colors::solarized_dark
   include hipchat
+  include ant
 
   class { 'solium::java6':
     source => "${files_url}/JavaForOSX2014-001.dmg"
@@ -70,8 +71,16 @@ class solium(
     host     => $files_url,
   }
 
-  ## Define strict depencancy rdering here
+  exec { 'jenv-ant':
+    command => 'jenv enable-plugin ant',
+    unless  => "test -e /Users/${user}/.jenv/shims/ant",
+  }
+
+  ## Define strict depencancy ordering here
   Class['jenv']
   -> Class['solium::java6']
   -> Class['solium::java7']
+
+  Class['jenv']
+  -> Package['ant']
 }
