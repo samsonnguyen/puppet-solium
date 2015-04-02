@@ -76,7 +76,7 @@ class solium(
     unless  => "test -e /Users/${user}/.jenv/shims/ant",
   }
 
-  ## Define strict depencancy ordering here
+  ## Define strict dependency ordering here
   Class['jenv']
   -> Class['solium::java6']
   -> Class['solium::java7']
