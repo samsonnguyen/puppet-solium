@@ -4,14 +4,21 @@ class solium(
     $password  = undef,
     $branches  = undef,
     $group     = 'staff',
-    $files_url = 'http://sharkcage.solium.com/vagrant-files/',
+    $files_url = 'http://sharkcage.solium.com/vagrant-files',
     $svn_host  = 'https://svn.solium.com/svn/shareworks/branches/',
   ) {
   include boxen::config
   require homebrew
-  include java6
   include java7
   include jenv
+  include git
+  include iterm2::dev
+  include iterm2::colors::solarized_dark
+  include hipchat
+
+  class { 'solium::java6':
+    source => "${files_url}/JavaForOSX2014-001.dmg"
+  }
 
   ## homebrew packages
   $homebrew_packages = [ 'coreutils','renameutils' ]
@@ -25,6 +32,11 @@ class solium(
     version     => '10.3.6.0.6',
     url         => "${files_url}/wls1036_dev_w_nativeio.zip",
     install_dir => '/opt/java/oracle/weblogic/',
+  }
+
+  class { 'intellij':
+    edition => 'ultimate',
+    version => '14.1'
   }
 
   $default_branches = [ { 'name'      => 'solium-branch1',
@@ -58,11 +70,8 @@ class solium(
     host     => $files_url,
   }
 
-  ## Define ordering here
-  Class['java6']
-  -> Class['java7']
-  -> Class['jenv']
-  -> Class['solium::weblogic']
-  -> Class['solium::shareworks']
-  #-> Class['solium::bash_profile']
+  ## Define strict depencancy rdering here
+  Class['jenv']
+  -> Class['solium::java6']
+  -> Class['solium::java7']
 }
