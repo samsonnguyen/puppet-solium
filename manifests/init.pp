@@ -17,17 +17,28 @@ class solium(
   include hipchat
   include ant
 
-  class { 'solium::java6':
-    source => "${files_url}/JavaForOSX2014-001.dmg"
+  ## Variables
+  $home = "/Users/${user}"
+  $default_branches = [ { 'name'      => 'solium-branch1',
+                          'sw_branch' => 'shareworks-5_22_br' },
+                        { 'name'      => 'solium-branch2',
+                          'sw_branch' => 'shareworks-5_23_br' },
+                        { 'name'      => 'solium-branch3',
+                          'sw_branch' => 'shareworks-5_24_br' } ]
+  $real_branches = $branches? {
+    undef   => $default_branches,
+    default => $branches
   }
 
-  ## homebrew packages
+  ## Homebrew packages
   $homebrew_packages = [ 'coreutils','renameutils' ]
   package { $homebrew_packages:
     ensure => 'installed'
   }
 
-  $home = "/Users/${user}"
+  class { 'solium::java6':
+    source => "${files_url}/JavaForOSX2014-001.dmg"
+  }
 
   class { 'solium::weblogic':
     version     => '10.3.6.0.6',
@@ -38,17 +49,6 @@ class solium(
   class { 'intellij':
     edition => 'ultimate',
     version => '14.1'
-  }
-
-  $default_branches = [ { 'name'      => 'solium-branch1',
-                          'sw_branch' => 'shareworks-5_22_br' },
-                        { 'name'      => 'solium-branch2',
-                          'sw_branch' => 'shareworks-5_23_br' },
-                        { 'name'      => 'solium-branch3',
-                          'sw_branch' => 'shareworks-5_24_br' } ]
-  $real_branches = $branches? {
-    undef   => $default_branches,
-    default => $branches
   }
 
   class { 'solium::shareworks':
