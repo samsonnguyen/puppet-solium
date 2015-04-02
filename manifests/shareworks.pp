@@ -24,8 +24,9 @@ class solium::shareworks( $user     = undef,
             "${home}/dev/${branches[2]['name']}/solium"
         ]:
     ensure       => directory,
-    owner        => $::boxen_user,
+    owner        => $user,
     group        => $group,
+    recurse      => true,
   }
 
   vcsrepo {
@@ -33,18 +34,21 @@ class solium::shareworks( $user     = undef,
       ensure              => present,
       provider            => svn,
       basic_auth_username => $user,
+      user                => $user,
       basic_auth_password => $password,
       source              => "${host}/${branches[0]['sw_branch']}";
     "${home}/dev/${branches[1]['name']}/solium":
       ensure              => present,
       provider            => svn,
       basic_auth_username => $user,
+      user                => $user,
       basic_auth_password => $password,
       source              => "${host}/${branches[1]['sw_branch']}";
     "${home}/dev/${branches[2]['name']}/solium":
       ensure              => present,
       provider            => svn,
       basic_auth_username => $user,
+      user                => $user,
       basic_auth_password => $password,
       source              => "${host}/${branches[2]['sw_branch']}";
   }
