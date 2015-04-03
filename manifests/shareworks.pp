@@ -26,7 +26,6 @@ class solium::shareworks( $user     = undef,
     ensure       => directory,
     owner        => $user,
     group        => $group,
-    recurse      => true,
   }
 
   vcsrepo {
@@ -34,22 +33,35 @@ class solium::shareworks( $user     = undef,
       ensure              => present,
       provider            => svn,
       basic_auth_username => $user,
-      user                => $user,
+      owner               => $user,
       basic_auth_password => $password,
       source              => "${host}/${branches[0]['sw_branch']}";
     "${home}/dev/${branches[1]['name']}/solium":
       ensure              => present,
       provider            => svn,
       basic_auth_username => $user,
-      user                => $user,
+      owner               => $user,
       basic_auth_password => $password,
       source              => "${host}/${branches[1]['sw_branch']}";
     "${home}/dev/${branches[2]['name']}/solium":
       ensure              => present,
       provider            => svn,
       basic_auth_username => $user,
-      user                => $user,
+      owner               => $user,
       basic_auth_password => $password,
       source              => "${host}/${branches[2]['sw_branch']}";
+  }
+
+  file { '/Applications/IntelliJ IDEA 14.app/Contents/codestyles':
+    ensure => directory,
+    owner  => $user,
+    group  => $group,
+  }
+
+  file { '/Applications/IntelliJ IDEA 14.app/Contents/codestyles/soliumStyle81.xml':
+    ensure => link,
+    target => "${home}/dev/${branches[2]['name']}/solium/conf/soliumStyle81.xml",
+    owner  => $user,
+    group  => $group,
   }
 }
