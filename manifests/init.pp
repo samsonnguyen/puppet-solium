@@ -16,6 +16,8 @@ class solium(
   include iterm2::colors::solarized_dark
   include hipchat
   include ant
+  include vagrant
+  include virtualbox
 
   ## Variables
   $home = "/Users/${user}"
@@ -35,6 +37,10 @@ class solium(
   package { $homebrew_packages:
     ensure => 'installed'
   }
+
+  ## Vagrant plugins
+  vagrant::plugin { 'berkshelf': } # Resolves to vagrant-berkshelf
+  vagrant::plugin { 'omnibus': }
 
   class { 'solium::java6':
     source => "${files_url}/JavaForOSX2014-001.dmg"
