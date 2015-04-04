@@ -13,5 +13,6 @@ class solium::tnsnames($version = undef,
   file { '/etc/tnsnames.ora':
     ensure   => 'file',
     mode     => '0644',
+    require  => Package['tnsnames'],
   }
 }
