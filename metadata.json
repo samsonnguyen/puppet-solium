@@ -1,0 +1,16 @@
+{
+  "name": "solium",
+  "version": "0.1.0",
+  "author": "Solium",
+  "summary": "Install Solium dev environment",
+  "license": "Apache 2.0",
+  "source": "https://github.com/samsonnguyen/puppet-solium",
+  "issues_url": null,
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_range": ">= 1.0.0"
+    }
+  ]
+}
+
