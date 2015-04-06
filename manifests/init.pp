@@ -16,7 +16,6 @@ class solium(
   include hipchat
   include ant
   include vagrant
-  include virtualbox
 
   ## Variables
   $home = "/Users/${user}"

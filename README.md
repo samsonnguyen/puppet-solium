@@ -11,7 +11,6 @@ Installs the following applications:
 - hipchat
 - ant
 - vagrant
-- virtualbox
 - shareworks (threee branches)
 - weblogic
 - intellij
