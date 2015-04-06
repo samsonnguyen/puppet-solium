@@ -33,6 +33,6 @@ mod    'puppetlabs-vcsrepo'
 github "iterm2",      "1.2.4"
 github "hipchat"
 github "wget"
-github "ant",         "1.0.0", :repo => "samsonnguyen/puppet-ant"
+github "ant",         "1.1.0", :repo => "samsonnguyen/puppet-ant"
 github "intellij"
 github "vagrant"
