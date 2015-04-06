@@ -83,7 +83,7 @@ class solium(
 
   class { 'ant':
     version       => '1.9.4',
-    homebrew_root => "${::boxen_home}/homebrew",
+    homebrew_root => $boxen::config::homebrewdir,
   }
 
   exec { 'jenv-ant':
