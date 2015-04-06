@@ -86,11 +86,6 @@ class solium(
     homebrew_root => "${::boxen_home}/homebrew",
   }
 
-  exec { 'jenv-ant':
-    command => 'jenv enable-plugin ant',
-    unless  => "test -e /Users/${user}/.jenv/shims/ant",
-  }
-
   ## Define strict dependency ordering here
   Class['jenv']
   -> Class['solium::java6']
