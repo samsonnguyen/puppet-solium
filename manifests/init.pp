@@ -10,7 +10,6 @@ class solium(
   include boxen::config
   require homebrew
   include java7
-  include jenv
   include git
   include iterm2::dev
   include iterm2::colors::solarized_dark
@@ -42,6 +41,11 @@ class solium(
   vagrant::plugin { 'berkshelf': } # Resolves to vagrant-berkshelf
   vagrant::plugin { 'omnibus': }
 
+  class { 'solium::jenv':
+    user  => $user,
+    home  => $home,
+  }
+
   class { 'solium::java6':
     source => "${files_url}/JavaForOSX2014-001.dmg"
   }
@@ -68,6 +72,8 @@ class solium(
 
   class { 'solium::sqldeveloper':
     version  => '4.0.3.16.84',
+    user     => $user,
+    group    => $group,
     host     => $files_url
   }
 
@@ -87,6 +93,7 @@ class solium(
   -> Class['solium::java6']
   -> Class['solium::java7']
 
-  Class['jenv']
+  Package['jenv']
   -> Package['ant']
+  -> Exec['install jenv ant plugin']
 }
