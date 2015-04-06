@@ -14,7 +14,6 @@ class solium(
   include iterm2::dev
   include iterm2::colors::solarized_dark
   include hipchat
-  include ant
   include vagrant
 
   ## Variables
@@ -80,6 +79,11 @@ class solium(
   class { 'solium::tnsnames':
     version  => '0.0.1',
     host     => $files_url,
+  }
+
+  class { 'ant':
+    version       => '1.9.4',
+    homebrew_root => "${::boxen_home}/homebrew",
   }
 
   exec { 'jenv-ant':
