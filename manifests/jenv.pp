@@ -10,7 +10,7 @@ class solium::jenv( $user = undef,
   }
 
   exec { 'install jenv ant plugin':
-    command => 'jenv enable-plugin ant',
+    command => 'jenv sh-enable-plugin ant',
     user    => $user,
     creates => "${home}/.jenv/shims/ant",
     require => Package['jenv']
