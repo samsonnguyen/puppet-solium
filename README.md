@@ -17,7 +17,7 @@ Installs the following applications:
 - sqldeveloper
 - bash-completion
 - tnsnames
-
+- updates bash_profile
 
 ## Developing ##
 You can develop without checking in code if you place this repository into:  

@@ -86,6 +86,12 @@ class solium(
     homebrew_root => $boxen::config::homebrewdir,
   }
 
+  class { 'solium::bash_profile':
+    user    => $user,
+    group   => $group,
+    home    => $home,
+  }
+
   exec { 'jenv-ant':
     command => 'jenv enable-plugin ant',
     unless  => "test -e /Users/${user}/.jenv/shims/ant",
