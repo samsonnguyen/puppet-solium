@@ -1,14 +1,14 @@
 # Copy Solium bash profile setup
-class solium::bash_profile($user  = undef,
-                           $group = undef,
-                           $home  = undef) {
+class solium::bash_profile( $user  = undef,
+                            $group = undef,
+                            $home  = undef ) {
   validate_string($home,
                   $user,
                   $group)
 
   file { "${home}/.solium_profile":
     owner   => $user,
-    group   => $group, 
+    group   => $group,
     content => template('solium/bash_profile/solium_profile.erb'),
   }
 
